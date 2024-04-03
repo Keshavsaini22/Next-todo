@@ -18,7 +18,6 @@ function Page() {
     async function getUserDetails() {
         try {
             const response = await fetch("http://localhost:3000/api/todo")
-            // console.log('response: ', response.data);
             const a = await response.json()
             setTodo(a)
         } catch (e) {

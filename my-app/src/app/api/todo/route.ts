@@ -8,12 +8,14 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-    const { data } = await req.json();
+    const data = await req.json();
     console.log('body: ', data);
     const response = await fetch("http://localhost:8000/todo", {
         method: "POST",
-        body: JSON.stringify(data)
+        body: data
+        // body: JSON.stringify(data)
     })
     const res = await response.json();
     return NextResponse.json(res)
 }
+

@@ -30,11 +30,30 @@ function Card(props: props) {
         // getUserDetails();
     };
 
-    const handleEdit = () => {
-
+    const handleEdit = async (event: React.FormEvent<HTMLFormElement>, data: string) => {
+        event.preventDefault();
+        handleClose()
+        const response = await fetch(`http://localhost:3000/api/todo/${props.item._id}`, {
+            method: "PUT",
+            body: JSON.stringify(data)
+        })
+        console.log('response: ', response);
+        handleCloseEdit()
+        
     }
-    const handleDelete = () => {
+    const handleDelete = async () => {
 
+        try {
+            const response = await fetch(`http://localhost:3000/api/todo/${props.item._id}`, {
+                method: 'DELETE',
+            })
+            // console.log('response: ', response.data);
+            const a = await response.json()
+            console.log('a: ', a)
+        } catch (e) {
+            console.log(e);
+        }
+        handleClose()
     }
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -83,9 +102,8 @@ function Card(props: props) {
                     {props.item.todo}
                 </Box>
             </Stack>
-            <MyDialog title="Edit todo" task={props.item.todo} open={openEdit} handleClose={handleCloseEdit} handleFormSubmit={function (event: React.FormEvent<HTMLFormElement>, data: string): Promise<void> {
-                throw new Error('Function not implemented.');
-            } } />
+            <MyDialog title="Edit todo" task={props.item.todo} open={openEdit} handleClose={handleCloseEdit}
+                handleFormSubmit={handleEdit} />
         </>
     )
 }

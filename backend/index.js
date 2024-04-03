@@ -25,9 +25,9 @@ app.get('/', (req, res) => {
 })
 
 app.post('/todo', async (req, res) => {
-    const { todo } = req.body
+    const todo = req.body
     try {
-        const output = await Todo.create({ todo })
+        const output = await Todo.create({ todo: todo })
         console.log('output: ', output);
         res.status(200).json({ Data: output })
     }
@@ -49,9 +49,10 @@ app.get('/todo', async (req, res) => {
 
 app.put('/todo/:id', async (req, res) => {
     const { id } = req.params
-    const { todo } = req.body
+    console.log('id: ', id)
+    const  todo  = req.body
     try {
-        const output = await Todo.findByIdAndUpdate(id, { todo }, { new: true })
+        const output = await Todo.findByIdAndUpdate(id, { todo:todo }, { new: true })
         res.status(200).json({ Data: output })
     }
     catch (err) {
@@ -61,6 +62,7 @@ app.put('/todo/:id', async (req, res) => {
 
 app.delete('/todo/:id', async (req, res) => {
     const { id } = req.params
+    console.log('id: ', id)
     try {
         const output = await Todo.findByIdAndDelete(id, { new: true })
         res.status(200).json({ Data: output })
