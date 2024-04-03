@@ -10,7 +10,10 @@ function MyDialog(props: props) {
     const [data, setData] = useState<string>('')
     const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const response = await axios.post("http://localhost:3000/api/todo", { data })
+        const response = await fetch("http://localhost:3000/api/todo", {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
         console.log('response: ', response);
         props.handleClose();
     }

@@ -36,7 +36,7 @@ function Page() {
 
     const handleClose = () => {
         setOpen(false);
-        getUserDetails();
+        // getUserDetails();
     };
     
     return (
