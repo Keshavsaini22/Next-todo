@@ -38,7 +38,15 @@ function Page() {
         setOpen(false);
         // getUserDetails();
     };
-    
+    const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>, data: string) => {
+        event.preventDefault();
+        const response = await fetch("http://localhost:3000/api/todo", {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        console.log('response: ', response);
+        handleClose()
+    }
     return (
         <>
             <Stack gap={2}>
@@ -47,7 +55,7 @@ function Page() {
                         <Add />
                     </IconButton>
                 </Stack>
-                <MyDialog title="Add new todo" open={open} handleClose={handleClose} />
+                <MyDialog handleFormSubmit={handleFormSubmit} title="Add new todo" open={open} handleClose={handleClose} />
                 <Box m={2} display={'flex'} gap={2} flexWrap={'wrap'}>
                     {todo.map((item: card) => (< Box key={item._id}><Card item={item} /></Box>))}
                 </Box>

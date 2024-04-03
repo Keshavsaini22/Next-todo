@@ -4,26 +4,23 @@ import React, { useState } from 'react'
 interface props {
     title: string;
     open: boolean; handleClose: () => void;
+    task?: string;
+    handleFormSubmit: (event: React.FormEvent<HTMLFormElement>, data: string) => Promise<void>
 }
 
 function MyDialog(props: props) {
-    const [data, setData] = useState<string>('')
-    const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const response = await fetch("http://localhost:3000/api/todo", {
-            method: "POST",
-            body: JSON.stringify(data)
-        })
-        console.log('response: ', response);
-        props.handleClose();
-    }
+    const [data, setData] = useState<string>(props.task || "")
+
     return (
         <Dialog
             open={props.open}
             onClose={props.handleClose}
             PaperProps={{
                 component: 'form',
-                onSubmit: handleFormSubmit,
+                onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+                    props.handleFormSubmit(event, data)
+                    
+                },
             }}
         >
             <DialogTitle sx={{ width: '400px' }}>{props.title}</DialogTitle>
@@ -38,8 +35,10 @@ function MyDialog(props: props) {
                     id="name"
                     name="email"
                     fullWidth
+                    value={data}
                     variant="standard"
                     onChange={(e) => {
+
                         setData(e.target.value)
                     }}
                 />
