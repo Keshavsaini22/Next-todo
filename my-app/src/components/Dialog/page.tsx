@@ -19,7 +19,7 @@ function MyDialog(props: props) {
                 component: 'form',
                 onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
                     props.handleFormSubmit(event, data)
-                    
+                    setData('')
                 },
             }}
         >

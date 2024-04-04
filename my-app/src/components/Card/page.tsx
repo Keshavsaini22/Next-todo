@@ -3,6 +3,7 @@ import { Box, Button, IconButton, Menu, MenuItem, Stack } from '@mui/material'
 import React, { useState } from 'react'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MyDialog from '../Dialog/page';
+import { rvalidateTodo } from '@/app/actions';
 
 interface card {
     _id: string;
@@ -39,7 +40,7 @@ function Card(props: props) {
         })
         console.log('response: ', response);
         handleCloseEdit()
-        
+        rvalidateTodo();
     }
     const handleDelete = async () => {
 
@@ -54,6 +55,8 @@ function Card(props: props) {
             console.log(e);
         }
         handleClose()
+        rvalidateTodo();
+
     }
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);

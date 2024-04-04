@@ -3,6 +3,7 @@ import { Add } from '@mui/icons-material'
 import { IconButton, Stack } from '@mui/material'
 import React, { useState } from 'react'
 import MyDialog from '../Dialog/page';
+import { rvalidateTodo } from '@/app/actions';
 
 function Navbar() {
     const [open, setOpen] = useState<boolean>(false);
@@ -15,11 +16,14 @@ function Navbar() {
         })
         console.log('response: ', response);
         handleClose()
+        rvalidateTodo()
     }
+
     const handleClose = () => {
         setOpen(false);
         // getUserDetails();
     };
+
     const handleClickOpen = () => {
         setOpen(true);
     };

@@ -8,7 +8,6 @@ export const revalidate = 5;
 export async function GET() {
     const response = await fetch("http://localhost:8000/todo",
         //  { next: { tags: ['todo'] } }
-        { next: { revalidate: 5 } }
     )
     const res = await response.json();
     return NextResponse.json(res)

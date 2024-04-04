@@ -2,30 +2,25 @@
 import Navbar from '@/components/Navbar/page'
 import Todos from '@/components/Todos/page'
 import { Stack } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-interface card {
-    _id: string;
-    todo: string;
-    __v: number;
-    _createdAt: string;
-    _updatdAt: string;
-}
+import React from 'react'
+import { rvalidateTodo } from '../actions'
+
 async function Page() {
-    // const [todo, setTodo] = useState([])
     async function getTodoDetails() {
         try {
-            const response = await fetch("http://localhost:3000/api/todo")
+            const response = await fetch("http://localhost:3000/api/todo", {
+                next: { tags: ['newtag'] }
+            })
             const a = await response.json()
-            // setTodo(a)
             return a
         } catch (e) {
             console.log(e);
         }
     }
 
-    // useEffect(() => {
+
     var data = await getTodoDetails()
-    // }, [])
+
 
     return (
         <>
